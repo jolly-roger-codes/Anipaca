@@ -25,8 +25,16 @@ if ($database_url) {
 }
 // Website configuration
 $websiteTitle = "AniPaca";
-$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
-$websiteUrl = "{$protocol}://{$_SERVER['SERVER_NAME']}";
+// Fix for Heroku HTTPS and proper domain detection
+$protocol = "https"; // Force HTTPS on production
+$serverName = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? 'localhost';
+
+// Handle Heroku's internal routing
+if ($serverName === '0.0.0.0' || strpos($serverName, '0.0.0.0') !== false) {
+    $serverName = 'anipaca-site-c941fb0051f4.herokuapp.com'; // Your actual Heroku domain
+}
+
+$websiteUrl = "{$protocol}://{$serverName}";
 $websiteLogo = $websiteUrl . "/public/logo/logo.png";
 $contactEmail = "contact@anipaca.com";
 
