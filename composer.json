@@ -1,0 +1,14 @@
+{
+    "name": "anipaca/anime-streaming",
+    "description": "Anime streaming website",
+    "type": "project",
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}

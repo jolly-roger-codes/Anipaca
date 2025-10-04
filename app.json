@@ -1,0 +1,23 @@
+{
+  "name": "Anipaca",
+  "description": "Anime streaming website",
+  "repository": "https://github.com/jolly-roger-codes/Anipaca",
+  "logo": "https://raw.githubusercontent.com/PacaHat/Anipaca/refs/heads/main/public/logo/logo.png",
+  "keywords": ["php", "anime", "streaming"],
+  "addons": [
+    {
+      "plan": "cleardb:ignite"
+    }
+  ],
+  "env": {
+    "ZEN_API_URL": {
+      "description": "URL for the zen-api service",
+      "value": "https://zen-api-pi.vercel.app/api"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/php"
+    }
+  ]
+}
