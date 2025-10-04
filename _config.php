@@ -1,17 +1,28 @@
 <?php 
 // Database configuration
-$conn = new mysqli(
-    $_ENV['DB_HOST'] ?? "localhost", 
-    $_ENV['DB_USER'] ?? "root", 
-    $_ENV['DB_PASS'] ?? "", 
-    $_ENV['DB_NAME'] ?? "anipaca"
-);
-
-if ($conn->connect_error) {
-    error_log("Database connection failed: " . $conn->connect_error);
-    die("Database connection failed.");
+$database_url = $_ENV['JAWSDB_URL'] ?? $_ENV['DATABASE_URL'] ?? '';
+if ($database_url) {
+    // Parse Heroku's JAWSDB_URL for MySQL
+    $url = parse_url($database_url);
+    $host = $url['host'];
+    $port = $url['port'] ?? 3306;
+    $database = ltrim($url['path'], '/');
+    $username = $url['user'];
+    $password = $url['pass'];
+    
+    $conn = new mysqli($host, $username, $password, $database, $port);
+    if ($conn->connect_error) {
+        error_log("Database connection failed: " . $conn->connect_error);
+        die("Database connection failed.");
+    }
+} else {
+    // Fallback for local development
+    $conn = new mysqli("localhost", "root", "", "anipaca");
+    if ($conn->connect_error) {
+        error_log("Database connection failed: " . $conn->connect_error);
+        die("Database connection failed.");
+    }
 }
-
 // Website configuration
 $websiteTitle = "AniPaca";
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";

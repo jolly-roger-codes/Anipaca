@@ -6,7 +6,7 @@
   "keywords": ["php", "anime", "streaming"],
   "addons": [
     {
-      "plan": "cleardb:ignite"
+      "plan": "jawsdb:kitefin"
     }
   ],
   "env": {
